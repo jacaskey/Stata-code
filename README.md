@@ -22,57 +22,22 @@ See the UCLA Academic Technology Services' excellent statistical computing websi
   <tbody>
     <tr>
       <td align="left" valign="top">
-        <a>bking2.ado</a>
+        bking2.ado
       </td>
       <td align="left" valign="top">Baxter-King (1995) bandpass filter for time series.</td>
     </tr>
     <tr>
       <td align="left" valign="top">
-        <a>xtfmbJ.ado</a>
-        ,
-        <a>xtfmbJ.hlp</a>
+        xtfmbJ.ado, xtfmbJ.hlp
       </td>
       <td align="left" valign="top">Fama-MacBeth (1973) regressions with options to weight by number of observations as proxy for precision of the years' estimates and an option to use a Newey-West correction for serial correlation in coefficient estimates.</td>
     </tr>
     <tr>
       <td align="left" valign="top">
-        <a>cgmreg.ado</a>
-        ,
-        <br />
-        <a>cgmreg.hlp</a>
-        ,
-        <br />
-        <a>cgmregF.ado</a>
-        ,
-        <br />
-        <a>cgmregF.hlp</a>
-        ,
-        <br />
-        <a>cgmlogit.ado</a>
-        ,
-        <br />
-        <a>cgmlogit.hlp</a>
-        ,
-        <br />
-        <a>cgmflogit.ado</a>
-        ,
-        <br />
-        <a>cgmflogit.hlp</a>
-        ,
-        <br />
-        <a>cgmwildboot.ado</a>
-        ,
-        <br />
-        <a>cgmwildboot.hlp</a>
+        cgmreg.ado, cgmreg.hlp, cgmregF.ado, cgmregF.hlp, cgmlogit.ado, cgmlogit.hlp, cgmflogit.ado, cgmflogit.hlp, cgmwildboot.ado, cgmwildboot.hlp
       </td>
       <td align="left" valign="top">
-        Implementation of various estimation commands with multi-way clustered standard errors as in Cameron, Gelbach and Miller (2010
-        <i>Journal of Business and Economic Statistics</i>
-        ). Also see Petersen (2009
-        <i>Review of Financial Studies</i>
-        ). Commands include linear regression (cgmreg), linear regression with Fieller (1954) confidence intervals on coefficient ratios (cgmregF), logit (cgmlogit), fractional logit (cgmflogit) and regression with bootstrapped p-values (cgmwildboot - See Cameron, Gelbach and Miller, 2008
-        <i>Review of Economics and Statistics</i>
-        ).
+        Implementation of various estimation commands with multi-way clustered standard errors as in Cameron, Gelbach and Miller (2010 <i>Journal of Business and Economic Statistics</i>). Also see Petersen (2009 <i>Review of Financial Studies</i>). Commands include linear regression (cgmreg), linear regression with Fieller (1954) confidence intervals on coefficient ratios (cgmregF), logit (cgmlogit), fractional logit (cgmflogit) and regression with bootstrapped p-values (cgmwildboot - See Cameron, Gelbach and Miller, 2008 <i>Review of Economics and Statistics</i>).
         <p>
           - cgmwildboot updated 2013-09-06
           <br />
@@ -89,9 +54,7 @@ See the UCLA Academic Technology Services' excellent statistical computing websi
     </tr>
     <tr>
       <td align="left" valign="top">
-        <a>regFieller.ado</a>
-        ,
-        <a>regFieller.hlp</a>
+       regFieller.ado, regFieller.hlp
       </td>
       <td align="left" valign="top">
         OLS regressions with confidence intervals for ratios of regression coefficients based on Fieller's theorem (more robust than delta method)
@@ -102,9 +65,7 @@ See the UCLA Academic Technology Services' excellent statistical computing websi
     </tr>
     <tr>
       <td align="left" height="44" valign="top">
-        <a>shumhaz.ado</a>
-        ,
-        <a>shumhaz.hlp</a>
+       shumhaz.ado, shumhaz.hlp
       </td>
       <td align="left" valign="top">
         Shumway (2001) hazard model estimates, which uses a standard logit routine and corrects the chi-squared statistics for the average number of observations per cross-sectional unit.
@@ -124,10 +85,7 @@ See the UCLA Academic Technology Services' excellent statistical computing websi
     </tr>
     <tr>
       <td align="left" valign="top">
-        <a>vuong.ado</a>
-        ,
-        <br />
-        <a>vuong.hlp</a>
+       vuong.ado, vuong.hlp
       </td>
       <td align="left" valign="top">Computes Vuong (1989 Econometrica) test of two non-nested regressions as implemented and described in Dechow (1994 Journal of Accounting and Economics). Syntax is "vuong mod1 mod2" where mod1 and mod2 are stored regression results.</td>
     </tr>
@@ -164,11 +122,7 @@ See the UCLA Academic Technology Services' excellent statistical computing websi
     </tr>
     <tr>
       <td align="left" valign="top">
-        <a>ffind.ado</a>
-        ,
-        <a>ffind.hlp</a>
-        <br />
-        <a></a>
+        ffind.ado, ffind.hlp
       </td>
       <td align="left" valign="top">Creates Fama-French industry classifications based on SIC codes</td>
     </tr>
