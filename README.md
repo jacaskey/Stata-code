@@ -10,7 +10,7 @@ See the UCLA Academic Technology Services' excellent statistical computing websi
     </div>
   </caption>
   <colgroup>
-    <col width="130" align="left">
+    <col width="140" align="left">
       <col width="360" align="left">
   </colgroup>
   <thead style="border-bottom:1px solid black;">
@@ -140,7 +140,7 @@ See the UCLA Academic Technology Services' excellent statistical computing websi
     <div align="left"><b>Utilities:</b></div>
   </caption>
   <colgroup>
-    <col width="130" align="left">
+    <col width="140" align="left">
       <col width="360" align="left">
   </colgroup>
   <thead style="border-bottom:1px solid black;">
@@ -212,7 +212,7 @@ See the UCLA Academic Technology Services' excellent statistical computing websi
     </div>
   </caption>
   <colgroup>
-    <col width="130" align="left">
+    <col width="140" align="left">
       <col width="360" align="left">
   </colgroup>
   <thead style="border-bottom:1px solid black;">
