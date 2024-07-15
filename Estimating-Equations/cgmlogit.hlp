@@ -1,0 +1,85 @@
+{smcl}
+{* 10feb2009}{...}
+{cmd:help cgmlogit}{right:version:  1.0.0}
+{hline}
+
+{title:Title}
+
+{p 4 8}{cmd:cgmlogit}  -  Logit regressions with multi-way clustered standard errors.{p_end}
+
+
+{title:Syntax}
+
+{p 4 6 2}
+{cmd:cgmlogit}
+{depvar}
+[{indepvars}]
+{ifin}
+{weight}
+, cluster(varlist) [{opt noconstant}]
+
+{title:Notes}
+
+{p 4 6 2}
+- You must specify at least one clustering variable ({opt cluster}).{p_end}
+{p 4 6 2}
+- The dependent variable must take on values of zero or one.{p_end}
+
+{title:Description}
+
+{p 4 4 2}
+{opt cgmlogit} resembles Mitchell Petersen's {opt logit2} command except that it allows an arbitrary number of clustering variables.  Cameron, Gelbach and Miller (2006)
+describe the procedure for computing the covariance matrix.  The program is based on the cgmreg command provided by Miller.{p_end}
+
+{p 4 4 2}
+The chi-square statistic for the joint test of all of the coefficients is computed using the adjusted covariance matrix.{p_end}
+
+{title:Options}
+
+{phang}
+{opt max}; Sets the diagonal elements of the covariance matrix to the maximum from estimates standard errors using OLS, robust and
+for each cluster (See Angrist and Pischke 2009). Note that this is somewhat ad hoc and does not adjust the off-diagonal elements of
+the covariance matrix.{p_end}
+
+{phang}
+{opt level(#)}; see {help estimation options##level():estimation options}.{p_end}
+
+{title:Example}
+{phang}{stata "webuse nlsw88" : . webuse nlsw88}{p_end}
+{phang}{stata "logit married tenure ttl_exp collgrad if ~missing(age,grade), cluster(industry)" : . logit married tenure ttl_exp collgrad if ~missing(age,grade), cluster(industry)}{p_end}
+{phang}{stata "cgmlogit married tenure ttl_exp collgrad if ~missing(age,grade), cluster(industry)" : . cgmlogit married tenure ttl_exp collgrad if ~missing(age,grade), cluster(industry)}{p_end}
+{phang}{stata "cgmlogit married tenure ttl_exp collgrad, cluster(industry age grade)" : . cgmlogit married tenure ttl_exp collgrad, cluster(industry age grade)}{p_end}
+
+
+{title:Reference}
+
+{p 4 6 2}
+- Angrist, J., and J. Pischke. 2009. Mostly harmless econometrics: An empiricists' companion. Princeton, NJ, USA: Princeton University Press.
+
+{p 4 6 2}
+- Cameron, A., J. Gelbach and D. Miller. 2006. Robust inference with multi-way clustering. NBER Technical Working Paper 327.
+
+{p 4 6 2}
+ - Petersen,M. 2009. Estimating standard errors in finance panel data sets: Comparing approaches. {it:Review of Financial Studies} 22(1): 435-480.{p_end}
+
+
+{title:Author}
+
+{p 4 4 2}Mitchell Petersen at Northwestern University (mpetersen@northwestern.edu) wrote logit2, which is available at http://www.kellogg.northwestern.edu/faculty/petersen/htm/papers/se/se_programming.htm.{p_end}
+
+{p 4 4 2}Douglas Miller at UC, Davis (dmiller@ucdavis.edu) wrote cgmreg, which is available at http://www.econ.ucdavis.edu/faculty/dmiller/statafiles/index.htm.{p_end}
+
+{p 4 4 2}Judson Caskey, UCLA, judson.caskey@anderson.ucla.edu{p_end}
+
+
+
+{title:Also see}
+
+{psee}
+Manual:  {bf:[R] logit, regress}
+
+{psee}
+Online:
+{helpb logit}, {helpb regress}, {helpb _robust}
+{p_end}
+

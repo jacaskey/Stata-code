@@ -1,0 +1,51 @@
+{smcl}
+{* 02may2007}{...}
+{cmd:help vuong}{right:version:  1.0.0}
+{hline}
+
+{title:Title}
+
+{p 4 8}{cmd:vuong}  -  Performs Vuong (1989 Econometrica) test comparing (possibly)
+non-nested linear regression specifications. {p_end}
+
+
+{title:Syntax}
+
+{p 4 6 2}
+{cmd:vuong}
+{it:modelA modelB}
+
+
+{title:Description}
+
+{p 4 4 2}
+{cmd:vuong} computes the Vuong (1989 Econometrica) test as implemented in Dechow (1994 Journal of Accounting and economics.  The test statistic is obtained by first computing the following quantity for each observation i:{p_end}
+
+{p 8 8 2}
+m(i)=0.5*log(RSSa/RSSb) + 0.5*n*[(ea(i))^2/RSSa - (eb(i))^2/RSSb]
+{p_end}
+
+{p 4 4 2}
+where RSSa is the residual sum of squares for regression specification A and ea(i) is observation i's residual in regression specification A.  The definitions of RSSb and eb(i) are similar for regression specification B.  n is the number of observations in the regression.
+{p_end}
+
+{p 4 4 2}
+The test statistic is computed by regressing the m(i)'s on a constant.  The t-statistic on the constant, multiplied by -sqrt[(n-1)/n], is the Z-statistic for the Vuong test.  A positive value indicates that {it:modelA} is better specified than {it:modelB} and vice versa. 
+{p_end}
+
+
+{title:Example}
+
+{phang}{stata "reg y x" : . reg y x}{p_end}
+{phang}{stata "est store modA" : . est store modA}{p_end}
+{phang}{stata "reg y z" : . reg y z}{p_end}
+{phang}{stata "est store modB" : . est store modB}{p_end}
+{phang}{stata "vuong modA modB" : . vuong modA modB}{p_end}
+
+{title:Author}
+
+{p 4 4}Judson Caskey, UCLA, judson.caskey@anderson.ucla.edu{p_end}
+
+
+
+

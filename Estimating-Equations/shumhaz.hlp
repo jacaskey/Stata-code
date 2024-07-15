@@ -1,0 +1,77 @@
+{smcl}
+{* 02nov2008}{...}
+{cmd:help shumhaz}{right:version:  1.0.0}
+{hline}
+
+{title:Title}
+
+{p 4 8}{cmd:shumhaz}  -  Shumway (2001 JB) hazard procedure{p_end}
+
+
+{title:Syntax}
+
+{p 4 6 2}
+{cmd:shumhaz}
+{depvar}
+[{indepvars}]
+{ifin}
+{weight}
+[, {opt l:evel(#)}]
+
+{title:Notes}
+
+{p 4 6 2}
+- You must {helpb tsset} your data before using {opt shumhaz}.{p_end}
+
+
+
+{title:Description}
+
+{p 4 4 2}
+{opt shumhaz} is an implementation of the Shumway (2001 JB) hazard
+procedure. The procedure essentially performs a logit test where the
+dependent variable is a binary indicator.  The program automatically
+includes only observations for which the indicator is zero or for
+which the time period is the first for which the cross-sectional unit
+has an indicator of one.  The test divides the chi-squared statistics
+by the average number of period per cross-sectional unit to correct
+the statistics given by the standard logit procedure.{p_end}
+
+
+{title:Options}
+
+{phang}
+{opt level(#)}; see {help estimation options##level():estimation options}.{p_end}
+{phang}{opt lroc}; reports area under receiver-operator characteristic curve for model (from {cmd:lroc} command).{p_end}
+
+{title:Example}
+
+{phang}{stata "webuse nlswork" : . webuse nlswork}{p_end}
+{phang}{stata "tsset idcode year" : . tsset idcode year}{p_end}
+{phang}{stata "gen Fmsp=F.msp" : . gen Fmsp=F.msp}{p_end}
+{phang}{stata "shumhaz Fmsp collgrad union ttl_exp ln_wage, lroc" : . shumhaz Fmsp collgrad union ttl_exp ln_wage, lroc}{p_end}
+
+
+
+{title:Reference}
+
+{p 4 6 2}
+ - Shumway, T., 2001, Forecasting bankruptcy more accurately:  A simple
+   hazard model, {it:Journal of Business} 74(1): 101-124.{p_end}
+
+{title:Author}
+
+{p 4 4}Judson Caskey, UCLA, judson.caskey@anderson.ucla.edu{p_end}
+
+
+
+{title:Also see}
+
+{psee}
+Manual:  {bf:[R] regress}
+
+{psee}
+Online:
+{helpb tsset}, {helpb regress}
+{p_end}
+

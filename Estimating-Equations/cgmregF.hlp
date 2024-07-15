@@ -1,0 +1,197 @@
+{smcl}
+{* 20dec2008}{...}
+{cmd:help cgmregF}{right:version:  1.0.0}
+{hline}
+
+{title:Title}
+
+{p 4 8}{cmd:cgmregF}  -  Regressions with confidence intervals of ratios of coefficients and multi-way clustered standard errors.{p_end}
+
+
+{title:Syntax}
+
+{p 4 6 2}
+{cmd:cgmregF}
+{depvar}
+[{indepvars}]
+{ifin}
+{weight}
+, {opt l:evel(#)} {opt testmat(num den)} cluster(varlist) [{opt noconstant} nullmat(matrix name)]
+
+{title:Notes}
+
+{p 4 6 2}
+- You must specify at least one clustering variable ({opt cluster}).{p_end}
+{p 4 6 2}
+- You must specify a confidence level (e.g. 95 for 95% interval).{p_end}
+{p 4 6 2}
+- You must specify two matrices that correspond to the ratios as described below.{p_end}
+
+{title:Description}
+
+{p 4 4 2}
+{opt cgmregF} performs the Cameron, Gelbach and Miller's {opt cgmreg} command and adds confidence intervals
+for ratios of coefficients using Fieller's (1954) method.  The approach follows that in Zerbe (1978).
+Given an independent variable {it:Y} on a vector of independent variables {it:X}, the regression estimates:
+{p_end}
+
+{p 8 8 8}
+{it:Y} = {it:X}{it:ß}
+
+{p 4 4 2}
+The user specifies ratios of coefficents of the form {it:K}'{it:ß}/{it:L}'{it:ß} where {it:K} and {it:L} have
+the same dimension as {it:ß}.  The matrices {opt num} and {opt den} correspond to the numerator vector {it:K}
+and denominator vector {it:L}, respectively.  If the user wishes to test one ratio, {opt num} and {opt den} each
+have one row.  The user must add an additional row to these matrices for each ratio to be tested.{p_end}
+
+{p 4 4 2}
+The displayed output of {opt regFieller} includes the normal regression output supplemented by a table that reports
+both Fieller-method and Delta method confidence intevals for the ratios.{p_end}
+
+{p 4 4 2}
+If the Fieller method yields a finite interval, it lists the output on one line as a confidence inteval.  The output
+from the first example below illustrates:{p_end}
+
+{col 10}Confidence intervals of ratios using Fieller's method
+{col 10}________________________________________________________________________________
+{col 10}                                  Fieller method            Delta method      
+{col 10}     Ratio     Null         T  [95% Conf. Interval]     [95% Conf. Interval]  
+{col 10}________________________________________________________________________________
+{col 10}    0.0135   0.0000    0.9957   -0.0047      0.1194      -0.0133      0.0403
+{col 10}   -0.2373   0.0000   -2.4143   -1.1662     -0.1285      -0.4311     -0.0435
+{col 10}________________________________________________________________________________
+
+{p 4 4 2}
+If the Fieller method yields an interval that comprises the entire real line, the confidence interval reports missing (.)
+for both the upper and lower bound.  Last, if the Fieller method yields the complement of a finite interval, the output
+lists the lower set on the top line, with missing (.) to denote negative infinity, and the upper set on the second line,
+with missing (.) to denote positive infinity.  The second example below illustrates:{p_end}
+
+{col 10}Confidence intervals of ratios using Fieller's method
+{col 10}________________________________________________________________________________
+{col 10}                                  Fieller method            Delta method      
+{col 10}     Ratio     Null         T  [95% Conf. Interval]     [95% Conf. Interval]  
+{col 10}________________________________________________________________________________
+{col 10}   73.9564   0.0000         .         .      8.3779     -72.5305    220.4433
+{col 10}                              -212.3717           .
+{col 10}   -4.2148   0.0000   -2.4143   -7.7827     -0.8575      -7.6577     -0.7719
+{col 10}________________________________________________________________________________
+
+
+{title:Options}
+
+{phang}
+{opt level(#)}; see {help estimation options##level():estimation options}.{p_end}
+{phang}
+{opt testmat}: The user must give the names of two matrices, each of which has the same number of columns as
+the number of coefficient estimates in the regression.  The two matrices must also have the same number of rows,
+one for each ratio to be tested.{p_end}
+{phang}
+{opt nullmat}: The user can specify a k×1 matrix giving null values for the ratios. The matrix must have the
+same number of rows as the numerator/denominator matrices. If a user does not give a null, the program
+assumes a null of zero.{p_end}
+{phang}
+{opt max}; Sets the diagonal elements of the covariance matrix to the maximum from estimates standard errors using OLS, robust and
+for each cluster (See Angrist and Pischke 2009). Note that this is somewhat ad hoc and does not adjust the off-diagonal elements of
+the covariance matrix.{p_end}
+
+
+{title:Example}
+{p 4 4 2}
+This example tests the ratio of the coefficients kstock/time and invest/time using both the {opt regress}
+and the {opt regress} command with the {opt robust} option.  The second example tests the ratios time/kstock
+and time/invest, which illustrates the output when the confidence inteval is the complement of a finite interval.
+{p_end}
+
+
+{phang}{stata "webuse grunfeld, clear" : . webuse grunfeld, clear}{p_end}
+{phang}{stata "matrix n=[1,0,0,0\0,0,1,0]" : . matrix n=[1,0,0,0\0,0,1,0]}{p_end}
+{phang}{stata "matrix d=[0,1,0,0\0,1,0,0]" : . matrix d=[0,1,0,0\0,1,0,0]}{p_end}
+{phang}{stata "cgmregF mvalue kstock invest time, level(95) testmat(n d) cluster(year company)" : . cgmregF mvalue kstock invest time, level(95) testmat(n d) cluster(year company)}{p_end}
+{phang}{stata "cgmregF mvalue kstock invest time, level(95) testmat(d n) cluster(year company)" : . cgmregF mvalue kstock invest time, level(95) testmat(d n) cluster(year company)}{p_end}
+
+
+{title:Return values}
+
+{col 4}Scalars
+{col 8}{cmd:e(N)}{col 27}Number of observations
+{col 8}{cmd:e(df_m)}{col 27}Model degrees of freedom
+{col 8}{cmd:e(df_r)}{col 27}Residual degrees of freedom
+{col 8}{cmd:e(chi2)}{col 27}Wald chi-squared statistic
+{col 8}{cmd:e(chi2_p)}{col 27}p-value of Wald statistic
+{col 8}{cmd:e(r2)}{col 27}R-squared
+{col 8}{cmd:e(rmse)}{col 27}Root mean squared error
+{col 8}{cmd:e(mss)}{col 27}Model sum of squares
+{col 8}{cmd:e(rss)}{col 27}Residual sum of squares
+{col 8}{cmd:e(r2_a)}{col 27}Adjusted R-squared
+{col 8}{cmd:e(ll)}{col 27}Log likelihood
+{col 8}{cmd:e(ll_0)}{col 27}Log likelihood, constant-only model
+{col 8}{cmd:e(S)}{col 27}Number of cluster combinations
+{col 8}{cmd:e(NC)}{col 27}Number of cluster variables
+{col 8}{cmd:e(N_i)}{col 27}Number of clusters for cluster variable i
+{col 8}{cmd:e(ratioi)}{col 27}Coefficient ratio i
+{col 8}{cmd:e(CDiL)}{col 27}Lower bound of confidence interval for ratio i (Delta method)
+{col 8}{cmd:e(CDiH)}{col 27}Upper bound of confidence interval for ratio i (Delta method)
+{col 8}{cmd:e(CFiL)}{col 27}Lower bound of confidence interval for ratio i (Feiller method)
+{col 8}{cmd:e(CFiH)}{col 27}Upper bound of confidence interval for ratio i (Feiller method)
+
+
+
+{col 4}Macros
+{col 8}{cmd:e(clusvar)}{col 27}Names of cluster variables
+{col 8}{cmd:e(clustvar)}{col 27}Names of cluster variables
+{col 8}{cmd:e(predict)}{col 27}Program used to implement {cmd:predict}
+{col 8}{cmd:e(properties)}{col 27}b V
+{col 8}{cmd:e(cmd)}{col 27}{cmd:cgmreg}
+{col 8}{cmd:e(depvar)}{col 27}Name of dependent variable
+
+{col 4}Matrices
+{col 8}{cmd:e(b)}{col 27} Coefficient vector
+{col 8}{cmd:e(V)}{col 27} Variance-covariance matrix of the estimators
+
+{col 4}Functions
+{col 8}{cmd:e(sample)}{col 27} Marks estimation sample
+
+
+{title:Reference}
+
+{p 4 6 2}
+- Angrist, J., and J. Pischke. 2009. Mostly harmless econometrics: An empiricists' companion. Princeton, NJ, USA: Princeton University Press.
+
+{p 4 6 2}
+- Cameron, A., J. Gelbach and D. Miller. 2006. Robust inference with multi-way clustering. NBER Technical Working Paper 327.
+
+{p 4 6 2}
+- Fieller, E. 1954. Some Problems in Interval Estimation. {it:Journal of Royal Statistical Society, Series B} 16(2): 175-185.{p_end}
+
+{p 4 6 2}
+ - Petersen,M. 2009. Estimating standard errors in finance panel data sets: Comparing approaches. {it:Review of Financial Studies} 22(1): 435-480.{p_end}
+
+{p 4 6 2}
+ - Zerbe, G. 1978. On Fieller's Theorem and the General Linear Model. {it:The American Statistician} 32(3): 103-105.{p_end}
+
+
+{title:Remarks}
+
+{p 4 6 2}
+- Updated 17-Feb-2010 to include number of cluster variables in ereturn list, allow for regressions on a constant only and technical changes (e.g. changing macro variables to scalars)
+
+
+{title:Author}
+{p 4 4 2}Mitchell Petersen at Northwestern University (mpetersen@northwestern.edu) wrote cluster2, which is available at http://www.kellogg.northwestern.edu/faculty/petersen/htm/papers/se/se_programming.htm.{p_end}
+
+{p 4 4 2}Douglas Miller at UC, Davis (dmiller@ucdavis.edu) wrote cgmreg, which is available at http://www.econ.ucdavis.edu/faculty/dmiller/statafiles/index.htm.{p_end}
+
+{p 4 4 2}Judson Caskey, UCLA, judson.caskey@anderson.ucla.edu{p_end}
+
+
+
+{title:Also see}
+
+{psee}
+Manual:  {bf:[R] regress}
+
+{psee}
+Online:
+{helpb regress}, {helpb _robust}
+{p_end}

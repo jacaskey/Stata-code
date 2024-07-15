@@ -1,0 +1,90 @@
+{smcl}
+{* 10feb2009}{...}
+{cmd:help cgmflogit}{right:version:  1.0.0}
+{hline}
+
+{title:Title}
+
+{p 4 8}{cmd:cgmflogit}  -  Fractional logit regressions with multi-way clustered standard errors.{p_end}
+
+
+{title:Syntax}
+
+{p 4 6 2}
+{cmd:cgmflogit}
+{depvar}
+[{indepvars}]
+{ifin}
+{weight}
+, [cluster(varlist) {opt noconstant}]
+
+{title:Notes}
+
+{p 4 6 2}
+- If you do not specify at least one clustering variable ({opt cluster}), the program estimates a fractional logit model with heterskedasticity-robust standard errors.{p_end}
+{p 4 6 2}
+- The dependent variable must take take on values no less than zero and no more than one.{p_end}
+
+{title:Description}
+
+{p 4 4 2}
+{opt cgmflogit} resembles Mitchell Petersen's {opt logit2} command except that it allows an arbitrary number of clustering variables.  Cameron, Gelbach and Miller (2006)
+describe the procedure for computing the covariance matrix.  The program is based on the cgmreg command provided by Miller.{p_end}
+
+{p 4 4 2}
+The chi-square statistic for the joint test of all of the coefficients is computed using the adjusted covariance matrix. In addition to a standard pseudo-R2 measure, the output also includes an OLS-type R2 measure (1 - SSR/SST) as recommended by Papke and Wooldridge (1996).{p_end}
+
+{title:Options}
+
+{phang}
+{opt max}; Sets the diagonal elements of the covariance matrix to the maximum from estimates standard errors using OLS, robust and
+for each cluster (See Angrist and Pischke 2009). Note that this is somewhat ad hoc and does not adjust the off-diagonal elements of
+the covariance matrix.{p_end}
+
+{phang}
+{opt level(#)}; see {help estimation options##level():estimation options}.{p_end}
+
+{title:Example}
+{phang}{stata "webuse nlsw88" : . webuse nlsw88}{p_end}
+{phang}{stata "summ grade" : . summ grade}{p_end}
+{phang}{stata "gen rel=grade/r(max)" : . gen rel=grade/r(max)}{p_end}
+{phang}{stata "glm rel married age tenure if ~missing(smsa,occupation), family(binomial) link(logit) cluster(industry)" : . glm rel married age tenure if ~missing(smsa,occupation), family(binomial) link(logit) cluster(industry)}{p_end}
+{phang}{stata "cgmflogit rel married age tenure if ~missing(smsa,occupation), cluster(industry)" : . cgmflogit rel married age tenure if ~missing(smsa,occupation), cluster(industry)}{p_end}
+{phang}{stata "cgmflogit rel married age tenure if ~missing(smsa,occupation), cluster(industry smsa occupation)" : . cgmflogit rel married age tenure if ~missing(smsa,occupation), cluster(industry smsa occupation)}{p_end}
+
+
+{title:Reference}
+
+{p 4 6 2}
+- Angrist, J., and J. Pischke. 2009. Mostly harmless econometrics: An empiricists' companion. Princeton, NJ, USA: Princeton University Press.
+
+{p 4 6 2}
+- Cameron, A., J. Gelbach and D. Miller. 2006. Robust inference with multi-way clustering. NBER Technical Working Paper 327.
+
+{p 4 6 2}
+ - Papke, L., and J. Wooldridge. 1996. Econometric methods for fractional response variables with an application to 401(k) plan participation rates. {it:Journal of Applied Econometrics} 11(6): 619-632.
+
+{p 4 6 2}
+ - Petersen, M. 2009. Estimating standard errors in finance panel data sets: Comparing approaches. {it:Review of Financial Studies} 22(1): 435-480.{p_end}
+
+
+{title:Author}
+
+{p 4 4 2}Mitchell Petersen at Northwestern University (mpetersen@northwestern.edu) wrote logit2, which is available at http://www.kellogg.northwestern.edu/faculty/petersen/htm/papers/se/se_programming.htm.{p_end}
+
+{p 4 4 2}Douglas Miller at UC, Davis (dmiller@ucdavis.edu) wrote cgmreg, which is available at http://www.econ.ucdavis.edu/faculty/dmiller/statafiles/index.htm.{p_end}
+
+{p 4 4 2}Judson Caskey, UCLA, judson.caskey@anderson.ucla.edu{p_end}
+
+
+
+{title:Also see}
+
+{psee}
+Manual:  {bf:[R] glm, logit, regress}
+
+{psee}
+Online:
+{helpb glm}, {helpb logit}, {helpb regress}, {helpb _robust}
+{p_end}
+

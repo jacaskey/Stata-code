@@ -1,0 +1,114 @@
+{smcl}
+{* 02may2007}{...}
+{cmd:help xtfmbJ}{right:version:  1.0.2}
+{hline}
+
+{title:Title}
+
+{p 4 8}{cmd:xtfmbJ}  -  Fama and MacBeth (1973) procedure{p_end}
+
+
+{title:Syntax}
+
+{p 4 6 2}
+{cmd:xtfmbJ}
+{depvar}
+[{indepvars}]
+{ifin}
+{weight}
+[, {opt l:evel(#)} {opt s:iglev(#)} {opt weighted} {opt newey(#)}]
+
+{title:Notes}
+
+{p 4 6 2}
+- You must {helpb tsset} your data before using {opt xtfmb}.{p_end}
+{p 4 6 2}
+- {opt by}, may be used with {opt xtfmb}; see {help by}.{p_end}
+{p 4 6 2}
+- {opt aweight}s are allowed; see {help weight}.{p_end}
+
+
+
+{title:Description}
+
+{p 4 4 2}
+{opt xtfmbJ} is an implementation of the Fama and MacBeth (1973) two step
+procedure. The procedure is as follows: In the first step, for each single time 
+period a cross-sectional regression is performed. Then, in the second step, 
+the final coefficient estimates are obtained as the average of the first step
+coefficient estimates.{p_end}
+
+{p 4 4 2}
+{opt xtfmbJ} allows you to test for the significance of coefficient combinations
+as you are used to from ordinary linear regressions. This is because the second
+step of the Fama-MacBeth procedure is implemented by aid of Zellner's SUR 
+estimation; however, I (J. Caskey) am not aware of a rigorous development of
+joint significance tests of coefficients estimated using the Fama-MacBeth
+procedure.{p_end}
+
+{p 4 4 2}
+The {opt weighted} option weighs a given time period's coefficents by the number
+of observations in that time period versus the total observations in the
+regression.  Time periods with more observations therefore have greater influence
+on the coefficient estimates.{p_end}
+
+{p 4 4 2}
+When the {opt newey(#)} is set to an integer option > 0, the standard errors are
+computed with a Newey-West correction corrsponding to the specified number of lags.
+In this case, the coefficient covariance matrix forces zero off-diagonal elements
+and therefore should not be used for post-estimation joint significance tests.{p_end}
+
+{p 4 4 2}
+The "avg. R-squared" which is provided in the header of the {opt xtfmbJ} program
+is computed as the average value of the R-squares from the cross-sectional 
+regressions in the first step of the Fama-MacBeth procedure.{p_end}
+
+{p 4 4 2}
+The {opt xtfmbJ} command is modified from the {opt xtfmb} command produced by
+Daniel Hoechle.  {opt xtfmbJ} adds a table that summarizes the signs of individual
+coefficients and adds these summaries to matrices included in the ereturn.  The
+ereturn also includes a matrix containing the individual regression results.{p_end}
+
+
+{title:Options}
+
+{phang}
+{opt level(#)}; see {help estimation options##level():estimation options}.
+
+{title:Example}
+
+{phang}{stata "webuse grunfeld" : . webuse grunfeld}{p_end}
+{phang}{stata "xtfmbJ invest mvalue kstock" : . xtfmb invest mvalue kstock}{p_end}
+{phang}{stata "est store FMB" : . est store FMB}{p_end}
+
+{phang}{stata "reg invest mvalue kstock" : . reg invest mvalue kstock}{p_end}
+{phang}{stata "est store OLS" : . est store OLS}{p_end}
+
+{phang}{stata "est table *, b se t" : . est table *, b se t}{p_end}
+
+{phang}{stata "estout *, cells(b(star) possig negsig) stats(r2 N)" : . estout *, cells(b(star) possig negsig) stats(r2 N)}{p_end}
+
+{title:Reference}
+
+{p 4 6 2}
+ - Fama, Eugene F., and James D. MacBeth, 1973, Risk, Return, and Equilibrium:
+ Empirical tests, {it:Journal of Political Economy} 81, 607-636.{p_end}
+
+{title:Author}
+
+{p 4 4}Daniel Hoechle, University of Basel, daniel.hoechle@unibas.ch{p_end}
+
+{p 4 4}Judson Caskey, UCLA, judson.caskey@anderson.ucla.edu{p_end}
+
+
+
+{title:Also see}
+
+{psee}
+Manual:  {bf:[R] regress}
+
+{psee}
+Online:
+{helpb tsset}, {helpb regress}, {helpb newey}, {helpb xtreg}, {helpb _robust}
+{p_end}
+
