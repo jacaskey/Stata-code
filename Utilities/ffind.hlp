@@ -1,0 +1,81 @@
+{smcl}
+{* 09dec2007}{...}
+{cmd:help ffind}{right:version:  1.0.0}
+{hline}
+
+{title:Title}
+
+{p 4 8}{cmd:ffind}  -  Fama and French industry classifications{p_end}
+
+
+{title:Syntax}
+
+{p 4 6 2}
+{cmd:ffind}
+{indvar}
+{ifin}
+{weight}
+, {opt n:ewvar(string)} {opt t:ype(#)}
+
+
+{title:Description}
+
+{p 4 4 2}
+{opt ffind} assigns Fama and French industry codes based on given SIC codes.  The
+{opt indvar} variable should contain SIC codes and {opt newvar} should be a valid
+name for a new variable.  {opt type} must be either 5, 10, 12, 17, 30, 38, 48 or 49,
+which corresponds to the number of industries.{p_end}
+
+{p 4 4 2}
+The resulting variable {opt newvar} contains numeric codes for the Fama-French
+industries.  The codes also have assigned value labels.{p_end}
+
+{p 4 4 2}
+For example, if we run the following commands:
+
+{opt . ffind dnum, newvar(ffind) type(17)}
+
+{opt . tab ffind}
+
+We get the following table:
+
+          Fama-French industry code (17 |
+                            industries) |      Freq.     Percent        Cum.
+----------------------------------------+-----------------------------------
+                                   Food |      6,446        3.21        3.21
+                    Mining and Minerals |      4,188        2.09        5.30
+             Oil and Petroleum Products |      9,243        4.60        9.90
+           Textiles, Apparel & Footware |      5,393        2.69       12.58
+                      Consumer Durables |      6,523        3.25       15.83
+                              Chemicals |      3,545        1.77       17.60
+           Drugs, Soap, Prfums, Tobacco |      7,689        3.83       21.43
+Construction and Construction Materials |      8,496        4.23       25.66
+                        Steel Works Etc |      3,127        1.56       27.21
+                    Fabricated Products |      2,203        1.10       28.31
+       Machinery and Business Equipment |     26,068       12.98       41.29
+                            Automobiles |      3,146        1.57       42.86
+                         Transportation |      6,558        3.27       46.12
+                              Utilities |      7,414        3.69       49.82
+                          Retail Stores |     11,663        5.81       55.62
+Banks, Insurance Companies, and Other F |     31,034       15.45       71.08
+                                  Other |     58,078       28.92      100.00
+----------------------------------------+-----------------------------------
+                                  Total |    200,814      100.00
+
+
+{title:Example}
+
+{phang}{stata "ffind dnum, newvar(ffind) type(17)" : . ffind dnum, newvar(ffind) type(17)}{p_end}
+
+{title:Reference}
+
+{p 4 6 2}
+ - See Kenneth French's data library at http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/Data_Library/changes_ind.html.{p_end}
+
+{title:Author}
+
+{p 4 4}Judson Caskey, UCLA, judson.caskey@anderson.ucla.edu{p_end}
+
+
+
+

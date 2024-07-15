@@ -1,0 +1,45 @@
+{smcl}
+{* 02may2007}{...}
+{cmd:help truncateJ}{right:version:  1.0.0}
+{hline}
+
+{title:Title}
+
+{p 4 8}{cmd:truncateJ}  -  Truncate variables{p_end}
+
+
+{title:Syntax}
+
+{p 4 6 2}
+{cmd:truncateJ}
+{varlist}
+{ifin}
+{weight}
+, {opt truncvar(string)} [{opt by(varlist)} {opt cuts(numlist)}]
+
+{title:Description}
+
+{p 4 4 2}
+{opt truncate} creates an indicator variable {opt truncvar} that identifies observations
+for which the variables in {opt varlist} are within the cutoffs given in
+the number list {opt cuts}.  Use a high cutoff of 100 or a low cutoff of zero
+for one-sided truncation.{p_end}
+
+{p 4 4 2}
+The {opt by} option allows you to base cutoffs on subsamples (e.g. within
+years).{p_end}
+
+{title:Example}
+
+{phang}{stata "truncateJ invest mvalue kstock, truncvar(sample)" : . truncateJ invest mvalue kstock, truncvar(sample)}{p_end}
+
+{phang}{stata "truncateJ invest mvalue kstock, truncvar(sample) by(year)cuts(0.5 99.5)" : . truncateJ invest mvalue kstock, truncvar(sample) by(year) cuts(0.5 99.5)}{p_end}
+
+{title:Author}
+
+
+{p 4 4}Judson Caskey, UCLA, judson.caskey@anderson.ucla.edu{p_end}
+
+
+
+

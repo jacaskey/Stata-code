@@ -1,0 +1,56 @@
+{smcl}
+{* 02may2007}{...}
+{cmd:help winsorizeJ}{right:version:  1.0.0}
+{hline}
+
+{title:Title}
+
+{p 4 8}{cmd:winsorizeJ}  -  Winsorize variables{p_end}
+
+
+{title:Syntax}
+
+{p 4 6 2}
+{cmd:winsorizeJ}
+{varlist}
+{ifin}
+{weight}
+[, {opt s:uffix(string)} {opt by(varlist)} {opt cuts(numlist)} centile]
+
+{title:Description}
+
+{p 4 4 2}
+{opt winsorizeJ} creates winsorized variables based on the cutoffs given in
+the number list {opt cuts}.  The new variable will have the suffix given in
+the {opt suffix} option and truncates values based on cutoffs.  The {opt centile}
+option uses percentiles computed using the {cmd:centile} command. Use a high
+cutoff of 100 or a low cutoff of 0 for one-sided cuts.{p_end}
+
+{p 4 4 2}
+The {opt by} option allows you to base cutoffs on subsamples (e.g. within
+years).{p_end}
+
+{title:Example}
+
+{phang}{stata "webuse grunfeld, clear" : . webuse grunfeld, clear}{p_end}
+{phang}{stata "summarize invest, detail" : . summarize invest, detail}{p_end}
+{phang}{stata "winsorizeJ invest mvalue kstock" : . winsorizeJ invest mvalue kstock}{p_end}
+{phang}{stata "winsorizeJ invest mvalue kstock, suffix(W2) centile" : . winsorizeJ invest mvalue kstock}{p_end}
+{phang}{stata "summarize invest* mvalue* kstock*" : . summarize invest* mvalue* kstock*" }{p_end}
+{phang}{stata "winsorizeJ invest mvalue kstock, by(year) suffix(W3) cuts(0.5 99.5)" : . winsorizeJ invest mvalue kstock, by(year) suffix(W) cuts(0.5 99.5)}{p_end}
+
+{title:Remarks}
+
+{p 4 6 2}
+- Updated 18-Dec-2013 to use the {cmd:_pctile} subcommand, rather than {cmd:centile}
+as the default for computing percentiles. {cmd:_pctile} uses sample values, as in
+{cmd:summarize, detail}. The {opt centile} option allows the use of computed
+percentiles.
+{p_end}
+
+{title:Author}
+{p 4 4}Judson Caskey, judson.caskey@mccombs.utexas.edu{p_end}
+
+
+
+

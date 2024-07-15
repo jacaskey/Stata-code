@@ -1,0 +1,62 @@
+{smcl}
+{* 02may2007}{...}
+{cmd:help xtileJ}{right:version:  1.0.0}
+{hline}
+
+{title:Title}
+
+{p 4 8}{cmd:xtileJ}  -  By-able version of xtile{p_end}
+
+
+{title:Syntax}
+
+{p 4 6 2}
+{cmd:xtileJ}
+{it:newvar} {cmd:=} {it:{help exp}}
+{ifin}
+, {opt by(varlist)} {opt nquantiles(#)}
+
+{title:Notes}
+
+{p 4 6 2}
+- Options {opt by} and {opt nquantiles} are required.{p_end}
+
+
+
+{title:Description}
+
+{p 4 4 2}
+{opt xtileJ} is similar to xtile but computes quantiles within {opt by} groups.  It is faster than the xtile2 command.{p_end}
+
+
+{title:Options}
+
+{phang}
+{opt by(varlist)}; see {help estimation options##level():estimation options}.
+{opt nquantiles} specifies number of quantiles (e.g. 10 for deciles).  It must be a positive integer.{p_end}
+
+{title:Example}
+
+{phang}{stata "xtileJ xQ=x, by(year) nquantiles(10)" : . xtileJ xQ=x, by(year) nquantiles(10)}{p_end}
+{phang}{stata "xtileJ yQ=y, by(year firm) nquantiles(10)" : . xtileJ yQ=y, by(year firm) nquantiles(10)}{p_end}
+
+{title:Remarks}
+
+{p 4 6 2}
+- Updated 17-Feb-2010 to eliminate issue with observations near maximum values.
+
+{title:Author}
+
+{p 4 4}Judson Caskey, UCLA, judson.caskey@anderson.ucla.edu{p_end}
+
+
+
+{title:Also see}
+
+
+{psee}
+Online:
+{helpb xtile}, {helpb xtile2}
+{p_end}
+
+
